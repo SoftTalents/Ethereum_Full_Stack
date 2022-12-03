@@ -3,11 +3,15 @@ import './App.css';
 import { useState } from 'react';
 import { ethers } from 'ethers';
 import Greeter from './artifacts/contracts/Greeter.sol/Greeter.json';
+import Token from './artifacts/contracts/Token.sol/Token.json';
 
-const greeterAddress = "0x6603d45A41dC6cb4273Cf0060a647Cd5FD83b12C"
+const greeterAddress = "0xC2FF81eFE00Eafa8627A094Aaf99d55cCC36B183"
+const tokenAddress = "0xc2185EDb108D4042C429b0Bb72A346591C4F0b97"
 
 function App() {
   const [greeting, setGreetingValue] = useState();
+  const [userAccount, setUserAccount] = useState();
+  const [amount, setAmount] = useState();
 
   async function requestAccount() {
     await window.ethereum.request({
@@ -26,6 +30,30 @@ function App() {
       } catch(err) {
         console.log('Error: ', err)
       }
+    }
+  }
+
+  async function getBalance() {
+    if (typeof window.ethereum !== 'undefined') {
+      const [account] = await window.ethereum.request({
+        method: 'eth_requestAccounts'
+      });
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const contract = new ethers.Contract(tokenAddress, Token.abi, provider);
+      const balance = await contract.balanceOf(account);
+      console.log(`Balance: ${balance.toString()}`);
+    }
+  }
+
+  async function sendCoins() {
+    if (typeof window.ethereum !== 'undefined') {
+      await requestAccount()
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(tokenAddress, Token.abi, signer);
+      const transaction = await contract.transfer(userAccount, amount);
+      await transaction.wait();
+      console.log(`${amount} coins successfully sent to ${userAccount}`);
     }
   }
 
@@ -49,6 +77,12 @@ function App() {
         <button onClick={setGreeting}>Set Greeting</button>
         <input value={greeting} onChange={e => setGreetingValue(e.target.value)}
           placeholder="Set greeting" />
+
+        <br />
+        <button onClick={getBalance}>Get Balance</button>
+        <button onClick={sendCoins}>Send Coins</button>
+        <input onChange={e => setUserAccount(e.target.value)} placeholder="Account ID" />
+        <input onChange={e => setAmount(e.target.value)} placeholder="Amount" />
       </header>
     </div>
   )

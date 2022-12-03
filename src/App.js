@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { ethers } from 'ethers';
 import Greeter from './artifacts/contracts/Greeter.sol/Greeter.json';
 
-const greeterAddress = "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
+const greeterAddress = "0x6603d45A41dC6cb4273Cf0060a647Cd5FD83b12C"
 
 function App() {
   const [greeting, setGreetingValue] = useState();

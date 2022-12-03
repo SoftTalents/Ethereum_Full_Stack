@@ -1,12 +1,12 @@
-# Getting Started with Create React App
+# Full Stack Ethereum Development Example using Hardhat + Ethers.js
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Start point
 
-In the project directory, you can run:
+To start hardhat project, run the following command:
 
-### `npm start`
+### `npx hardhat`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.

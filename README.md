@@ -5,8 +5,32 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Start point
 
 To start hardhat project, run the following command:
+```bash
+npx hardhat
+```
 
-### `npx hardhat`
+## Compile
+
+To compile, run the following command:
+```bash
+npx hardhat compile
+```
+
+## Deploy
+
+To deply to the local network, you first need to start local test node.
+```bash
+npx hardhat node
+```
+Now we can run deploy script on other terminal.
+```bash
+npx hardhat run scripts/deploy.js --network localhost
+```
+**_Note: Before deploy, you have to include below require commands at the heading of hardhat.config.js_**
+```js
+require("@nomiclabs/hardhat-ethers");
+require("@nomiclabs/hardhat-waffle");
+```
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.

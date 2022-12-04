@@ -3,10 +3,12 @@ import './App.css';
 import { useState } from 'react';
 import { ethers } from 'ethers';
 import Greeter from './artifacts/contracts/Greeter.sol/Greeter.json';
-import Token from './artifacts/contracts/Token.sol/Token.json';
+// import Token from './artifacts/contracts/Token.sol/Token.json';
+import ERCToken from './artifacts/contracts/ERCToken.sol/ERCToken.json';
 
 const greeterAddress = "0xC2FF81eFE00Eafa8627A094Aaf99d55cCC36B183"
-const tokenAddress = "0xc2185EDb108D4042C429b0Bb72A346591C4F0b97"
+// const tokenAddress = "0xc2185EDb108D4042C429b0Bb72A346591C4F0b97"
+const ercTokenAddress = "0x34072804E499D943C03f22A2891814e39C40F351"
 
 function App() {
   const [greeting, setGreetingValue] = useState();
@@ -39,7 +41,7 @@ function App() {
         method: 'eth_requestAccounts'
       });
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const contract = new ethers.Contract(tokenAddress, Token.abi, provider);
+      const contract = new ethers.Contract(ercTokenAddress, ERCToken.abi, provider);
       const balance = await contract.balanceOf(account);
       console.log(`Balance: ${balance.toString()}`);
     }
@@ -50,7 +52,7 @@ function App() {
       await requestAccount()
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
-      const contract = new ethers.Contract(tokenAddress, Token.abi, signer);
+      const contract = new ethers.Contract(ercTokenAddress, ERCToken.abi, signer);
       const transaction = await contract.transfer(userAccount, amount);
       await transaction.wait();
       console.log(`${amount} coins successfully sent to ${userAccount}`);

@@ -42,3 +42,21 @@ Runs the app in the development mode.
 npm start
 ```
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+## Writing Hardhat Tasks
+
+To run hardhat task, first define task into hardhat.config.js
+```sol
+task("cocoa", "Printes the list of accounts", async (taskArg, hre) => {
+  const accounts = await hre.ethers.getSigners();
+
+  for (const account of accounts) {
+    console.log(account.address);
+  }
+});
+```
+
+Then run task as below.
+```bash
+npx hardhat cocoa
+```

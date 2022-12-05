@@ -2,13 +2,14 @@
 import './App.css';
 import { useState } from 'react';
 import { ethers } from 'ethers';
+import env from "react-dotenv";
+
 import Greeter from './artifacts/contracts/Greeter.sol/Greeter.json';
 // import Token from './artifacts/contracts/Token.sol/Token.json';
 import ERCToken from './artifacts/contracts/ERCToken.sol/ERCToken.json';
 
-const greeterAddress = "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
-// const tokenAddress = "0xc2185EDb108D4042C429b0Bb72A346591C4F0b97"
-const ercTokenAddress = "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
+const greeterAddress = env.GREETER_ADDRESS;
+const ercTokenAddress = env.ERCTOKEN_ADDRESS;
 
 function App() {
   const [greeting, setGreetingValue] = useState();
